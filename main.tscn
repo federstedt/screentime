@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvf36w0vhxh67"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_aritp"]
+[ext_resource type="PackedScene" uid="uid://daf17v3biv5t3" path="res://GUI/base_gui.tscn" id="1_mynnt"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_aritp")
+
+[node name="BaseGUI" parent="." instance=ExtResource("1_mynnt")]
+
+[node name="MainTimer" type="Timer" parent="."]

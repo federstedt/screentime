@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://daf17v3biv5t3"]
+
+[ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_ibtl7"]
+[ext_resource type="Script" path="res://GUI/base_gui.gd" id="1_k2ife"]
+
+[node name="BaseGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k2ife")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.813258, 0.813258, 0.813258, 1)
+
+[node name="MainText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("1_ibtl7")
+bbcode_enabled = true
+text = "[center]TEST[/center]"
+fit_content = true
+
+[node name="TimeLeftText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -69.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ibtl7")
+bbcode_enabled = true
+text = "[center]Time Left[/center]"
+fit_content = true
