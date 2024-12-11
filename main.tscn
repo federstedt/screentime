@@ -9,3 +9,4 @@ script = ExtResource("1_aritp")
 [node name="BaseGUI" parent="." instance=ExtResource("1_mynnt")]
 
 [node name="MainTimer" type="Timer" parent="."]
+one_shot = true

@@ -34,15 +34,73 @@ fit_content = true
 
 [node name="TimeLeftText" type="RichTextLabel" parent="."]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = -1
+anchor_top = 0.322
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -69.0
-offset_bottom = 15.0
+anchor_bottom = 0.458
+offset_left = -1.0
+offset_top = 6.34398
+offset_right = -1.0
+offset_bottom = 2.21597
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ibtl7")
 bbcode_enabled = true
 text = "[center]Time Left[/center]"
 fit_content = true
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 510.0
+offset_top = 140.0
+offset_right = -591.0
+offset_bottom = -153.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reset"
+
+[node name="PauseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 595.0
+offset_top = 140.0
+offset_right = -502.0
+offset_bottom = -153.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pause"
+metadata/_edit_use_anchors_ = true
+
+[node name="LineSetTime" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.386
+anchor_top = 0.5
+anchor_right = 0.623
+anchor_bottom = 1.0
+offset_left = 103.328
+offset_top = 211.0
+offset_right = -102.634
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TimeElapsedText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.571
+offset_bottom = 19.992
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ibtl7")
+bbcode_enabled = true
+text = "[center]Time Elapsed[/center]"
