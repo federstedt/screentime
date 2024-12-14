@@ -8,8 +8,8 @@ signal time_elapsed_updated(time: float)
 
 #Onready
 @onready var main_timer:Timer = get_node("MainTimer")  # Referens till din TimerNode
-@onready var reset_button:Button = get_node("BaseGUI/ResetButton")
-@onready var pause_button:Button = get_node("BaseGUI/PauseButton")
+@onready var reset_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/ResetButton")
+@onready var pause_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/PauseButton")
 @onready var time_elapsed := 0.0
 
 func _ready():

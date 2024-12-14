@@ -1,20 +1,28 @@
 extends Control
 
-@onready var pause_button: Button = get_node("PauseButton")
+# Connect vars to elemets
+@onready var pause_button: Button = get_node("MainPage/MainContainer/ButtonContainer/PauseButton")
+@onready var timers_button: Button = get_node("MenuContainer/TimersButton")
+@onready var settings_button: Button = get_node("MenuContainer/SettingsButton")
+@onready var main_page: Control = get_node("MainPage")
+@onready var Settings_page: Control = get_node("SettingsPage")
 
 func _ready():
 	var main_node = get_parent()  # Main är föräldern till GUI
+	# connect signals
 	main_node.connect("timer_updated", Callable(self, "_on_timer_updated"))  # Koppla signalen för timern
 	main_node.connect("time_elapsed_updated", Callable(self, "_on_elapsed_updated"))
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
+	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
+	timers_button.connect("pressed", Callable(self, "_on_timers_pressed"))
 
 func _on_timer_updated(time_left: float):
-	var label: RichTextLabel = get_node("TimeLeftText")
+	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeLeftText")
 	var text = str(round(time_left)) + " seconds left"  # Uppdatera label
 	label.text = "[center]" + text + "[/center]"
 
 func _on_elapsed_updated(time:float):
-	var label: RichTextLabel = get_node("TimeElapsedText")
+	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeElapsedText")
 	var text = "Elapsed: " + str(round(time))
 	label.text = "[center]" + text + "[/center]"
 	
@@ -23,3 +31,12 @@ func _on_pause_pressed() -> void:
 		pause_button.text = 'Unpause'
 	else:
 		pause_button.text = 'Pause'
+
+func _on_settings_pressed() -> void:
+	print("Settings pressed")
+	main_page.visible = false
+	Settings_page.visible = true
+	
+func _on_timers_pressed() -> void:
+	Settings_page.visible = false
+	main_page.visible = true
