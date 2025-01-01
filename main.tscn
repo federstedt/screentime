@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvf36w0vhxh67"]
+[gd_scene load_steps=4 format=3 uid="uid://cvf36w0vhxh67"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aritp"]
 [ext_resource type="PackedScene" uid="uid://daf17v3biv5t3" path="res://GUI/base_gui.tscn" id="1_mynnt"]
+[ext_resource type="Script" path="res://file_parser.gd" id="3_7srqc"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_aritp")
@@ -10,3 +11,6 @@ script = ExtResource("1_aritp")
 
 [node name="MainTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="FileParser" type="Node" parent="."]
+script = ExtResource("3_7srqc")

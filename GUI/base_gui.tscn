@@ -112,7 +112,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Time limit"
 
-[node name="Button" type="Button" parent="SettingsPage"]
+[node name="SaveSettingsButton" type="Button" parent="SettingsPage"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
