@@ -2,10 +2,12 @@ extends Control
 
 # Connect vars to elemets
 @onready var pause_button: Button = get_node("MainPage/MainContainer/ButtonContainer/PauseButton")
-@onready var timers_button: Button = get_node("MenuContainer/TimersButton")
-@onready var settings_button: Button = get_node("MenuContainer/SettingsButton")
+@onready var timers_button: Button = get_node("SideMenu/MainMenu/TimersButton")
+@onready var settings_button: Button = get_node("SideMenu/MainMenu/SettingsButton")
 @onready var main_page: Control = get_node("MainPage")
 @onready var Settings_page: Control = get_node("SettingsPage")
+@onready var menu_button:Button = get_node("SideMenu/MenuButton")
+@onready var mainmenu_container:VBoxContainer = get_node("SideMenu/MainMenu")
 
 func _ready():
 	var main_node = get_parent()  # Main är föräldern till GUI
@@ -15,6 +17,7 @@ func _ready():
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
 	timers_button.connect("pressed", Callable(self, "_on_timers_pressed"))
+	menu_button.connect("pressed", Callable(self, "_on_mainmenu_pressed"))
 
 func _on_timer_updated(time_left: float):
 	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeLeftText")
@@ -32,8 +35,13 @@ func _on_pause_pressed() -> void:
 	else:
 		pause_button.text = 'Pause'
 
+func _on_mainmenu_pressed() -> void:
+	if mainmenu_container.visible == true:
+		mainmenu_container.visible = false
+	else:
+		mainmenu_container.visible = true
+
 func _on_settings_pressed() -> void:
-	print("Settings pressed")
 	main_page.visible = false
 	Settings_page.visible = true
 	

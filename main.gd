@@ -16,6 +16,7 @@ func _ready():
 	set_main_timer(main_time)
 	main_timer.start()  # Starta timern
 	main_timer.connect("timeout", Callable(self, "_on_timeout"))  # Koppla timeout-signalen
+	# Connect buttons
 	reset_button.connect("pressed", Callable(self, "_on_reset_pressed"))
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 
@@ -30,7 +31,7 @@ func _on_timeout():
 
 func set_main_timer(time: float):
 	main_timer.wait_time = time
-
+	
 
 func _on_reset_pressed() -> void:
 	print('reset pressed')
