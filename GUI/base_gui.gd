@@ -13,21 +13,30 @@ signal setting_main_timer_updated(new_main_time: float)
 @onready var mainmenu_container:VBoxContainer = get_node("SideMenu/MainMenu")
 @onready var save_settings_button: Button = get_node("SettingsPage/SaveSettingsButton")
 
+@onready var timeleft_label: RichTextLabel = get_node("MainPage/MainContainer/TimeLeftText")
+
 func _ready():
 	var main_node = get_parent()  # Main är föräldern till GUI
 	# connect signals
 	main_node.connect("timer_updated", Callable(self, "_on_timer_updated"))  # Koppla signalen för timern
 	main_node.connect("time_elapsed_updated", Callable(self, "_on_elapsed_updated"))
+	main_node.connect("time_out", Callable(self,"_on_time_out"))
+	
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
 	timers_button.connect("pressed", Callable(self, "_on_timers_pressed"))
 	menu_button.connect("pressed", Callable(self, "_on_mainmenu_pressed"))
 	save_settings_button.connect("pressed", Callable(self, "_on_settings_submit"))
 
-func _on_timer_updated(time_left: float):
-	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeLeftText")
-	var text = str(round(time_left)) + " seconds left"  # Uppdatera label
-	label.text = "[center]" + text + "[/center]"
+func _on_time_out() -> void:
+	print('Time is out!')
+	var text = "Time is out!"
+	timeleft_label.text = "[center]" + text + "[/center]"
+
+func _on_timer_updated(time_left: float) -> void:
+	if time_left > 0:
+		var text = str(round(time_left)) + " seconds left"  # Uppdatera label
+		timeleft_label.text = "[center]" + text + "[/center]"
 
 func _on_elapsed_updated(time:float):
 	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeElapsedText")

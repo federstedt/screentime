@@ -3,6 +3,7 @@ extends Node
 # ref for timers: https://gamedevbeginner.com/how-to-make-a-timer-in-godot-count-up-down-in-minutes-seconds/
 signal timer_updated(time_left: float)
 signal time_elapsed_updated(time: float)
+signal time_out()
 #Exports
 #@export var main_time:float = 10
 
@@ -12,7 +13,7 @@ signal time_elapsed_updated(time: float)
 @onready var pause_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/PauseButton")
 @onready var time_elapsed := 0.0
 @onready var base_gui_node: Control = get_node("BaseGUI")
-
+@onready var audiostream_player: AudioStreamPlayer = get_node("AudioStreamPlayer")
 # load settings
 @onready var file_handler:Node = get_node("FileParser")
 @onready var main_time = file_handler.get_setting_main_time()
@@ -35,8 +36,8 @@ func _process(delta: float):
 	emit_signal("timer_updated", main_timer.time_left)  # Skicka kontinuerligt tid kvar som signal
 
 func _on_timeout():
-	#print("Timer is done!")  # Exempel: Vad som händer när tiden är slut
-	print("Timer ran out!")
+	audiostream_player.play()
+	emit_signal("time_out")
 
 func set_main_timer(time: float):
 	main_timer.wait_time = time

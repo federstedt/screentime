@@ -48,10 +48,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -402.892
-offset_top = -263.0
-offset_right = 402.892
-offset_bottom = 263.0
+offset_left = -233.5
+offset_top = -165.0
+offset_right = 233.5
+offset_bottom = 165.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -64,12 +64,19 @@ bbcode_enabled = true
 text = "[center]Time Left[/center]"
 fit_content = true
 
+[node name="TimeElapsedTitle" type="RichTextLabel" parent="MainPage/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_ibtl7")
+bbcode_enabled = true
+text = "[center]Total Time[/center]"
+
 [node name="TimeElapsedText" type="RichTextLabel" parent="MainPage/MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_ibtl7")
 bbcode_enabled = true
-text = "[center]Time Elapsed[/center]"
+text = "[center]0[/center]"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="MainPage/MainContainer"]
 layout_mode = 2
@@ -85,6 +92,9 @@ text = "Reset"
 layout_mode = 2
 text = "Pause"
 metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPage/MainContainer"]
+layout_mode = 2
 
 [node name="SettingsPage" type="Control" parent="."]
 visible = false
