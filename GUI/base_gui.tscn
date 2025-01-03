@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://daf17v3biv5t3"]
+[gd_scene load_steps=5 format=3 uid="uid://daf17v3biv5t3"]
 
 [ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_ibtl7"]
 [ext_resource type="Script" path="res://GUI/base_gui.gd" id="1_k2ife"]
 [ext_resource type="FontFile" uid="uid://c06jthjawvu8v" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="3_n1hj4"]
+[ext_resource type="PackedScene" uid="uid://ceaoo34gyk4pv" path="res://settings.tscn" id="3_ytfr8"]
 
 [node name="BaseGUI" type="Control"]
 layout_mode = 3
@@ -96,47 +97,9 @@ metadata/_edit_use_anchors_ = true
 [node name="RichTextLabel" type="RichTextLabel" parent="MainPage/MainContainer"]
 layout_mode = 2
 
-[node name="SettingsPage" type="Control" parent="."]
+[node name="SettingsPage" parent="." instance=ExtResource("3_ytfr8")]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TimeLimitEntry" type="LineEdit" parent="SettingsPage"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -15.5
-offset_right = 76.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Time limit"
-
-[node name="SaveSettingsButton" type="Button" parent="SettingsPage"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = 38.0
-offset_right = 41.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
-text = "Save"
 
 [node name="SideMenu" type="VBoxContainer" parent="."]
 layout_mode = 1

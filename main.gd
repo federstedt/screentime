@@ -33,9 +33,11 @@ func _ready():
 	reset_button.connect("pressed", Callable(self, "_on_reset_pressed"))
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	popup_snooze_button.connect("pressed", Callable(self, "_on_popup_snooze_pressed"))
-	# connect other signals
-	base_gui_node.connect("setting_main_timer_updated", Callable(self, "_on_setting_main_timer_updated"))
 	
+	# connect other signals from GUI node
+	base_gui_node.connect("setting_main_timer_updated", Callable(self, "_on_setting_main_timer_updated"))
+	base_gui_node.connect("setting_snooze_timer_updated", Callable(self, "_on_snooze_timer_updated"))
+	base_gui_node.connect("setting_snooze_limit_updated", Callable(self, "_on_snooze_limit_updated"))
 
 func _process(delta: float):
 	time_elapsed += delta
@@ -78,10 +80,16 @@ func _on_pause_pressed() -> void:
 		main_timer.paused = true
 
 func _on_setting_main_timer_updated(new_main_time: float) -> void:
-	print("new time: " + str(new_main_time))
 	# save new time to file
 	file_handler.set_settings_main_time(new_main_time)
 	# set timer to new value
 	set_main_timer(new_main_time)
 	reset_main_timer()
 	
+func _on_snooze_timer_updated(new_snooze_time: float) -> void:
+	print("new snooze time: " + str(new_snooze_time))
+	#TODO: add function for updating settings file
+
+func _on_snooze_limit_updated(new_snooze_limit: int) -> void:
+	print("new snooze limit: " + str(new_snooze_limit))
+	#TODO: add function for settings max number of snooze times
