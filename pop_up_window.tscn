@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://gpctyu3wadv3"]
+
+[ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_sx1g7"]
+
+[node name="PopUpWindow" type="Window"]
+title = "ScreenTime PopUp"
+initial_position = 1
+size = Vector2i(600, 600)
+exclusive = true
+borderless = true
+always_on_top = true
+
+[node name="PopUpGui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PopUpGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.811765, 0.811765, 0.811765, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopUpGui"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme = ExtResource("1_sx1g7")
+bbcode_enabled = true
+text = "[center]Time is up ! [/center]"
+fit_content = true
+
+[node name="SnoozeButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.5
+offset_right = 32.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme = ExtResource("1_sx1g7")
+text = "Snooze"

@@ -170,12 +170,19 @@ flat = true
 visible = false
 layout_mode = 2
 
-[node name="TimersButton" type="Button" parent="SideMenu/MainMenu"]
-layout_mode = 2
-theme = ExtResource("1_ibtl7")
-text = "Timers"
-
 [node name="SettingsButton" type="Button" parent="SideMenu/MainMenu"]
 layout_mode = 2
 theme = ExtResource("1_ibtl7")
 text = "Settings"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme = ExtResource("1_ibtl7")
+theme_override_fonts/font = ExtResource("3_n1hj4")
+text = ""

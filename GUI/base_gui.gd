@@ -4,9 +4,11 @@ extends Control
 signal setting_main_timer_updated(new_main_time: float)
 
 # Connect vars to elemets
+# Buttons
 @onready var pause_button: Button = get_node("MainPage/MainContainer/ButtonContainer/PauseButton")
-@onready var timers_button: Button = get_node("SideMenu/MainMenu/TimersButton")
 @onready var settings_button: Button = get_node("SideMenu/MainMenu/SettingsButton")
+@onready var exit_button:Button = $ExitButton
+
 @onready var main_page: Control = get_node("MainPage")
 @onready var Settings_page: Control = get_node("SettingsPage")
 @onready var menu_button:Button = get_node("SideMenu/MenuButton")
@@ -22,11 +24,20 @@ func _ready():
 	main_node.connect("time_elapsed_updated", Callable(self, "_on_elapsed_updated"))
 	main_node.connect("time_out", Callable(self,"_on_time_out"))
 	
+	#buttons
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
-	timers_button.connect("pressed", Callable(self, "_on_timers_pressed"))
 	menu_button.connect("pressed", Callable(self, "_on_mainmenu_pressed"))
+	exit_button.connect("pressed", Callable(self, "_on_exit_pressed"))
+	
+	# settings page
 	save_settings_button.connect("pressed", Callable(self, "_on_settings_submit"))
+
+func _on_exit_pressed() -> void:
+	exit_app()
+
+func exit_app() -> void:
+	get_tree().quit()
 
 func _on_time_out() -> void:
 	print('Time is out!')

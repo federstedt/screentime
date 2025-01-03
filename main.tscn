@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvf36w0vhxh67"]
+[gd_scene load_steps=6 format=3 uid="uid://cvf36w0vhxh67"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aritp"]
 [ext_resource type="PackedScene" uid="uid://daf17v3biv5t3" path="res://GUI/base_gui.tscn" id="1_mynnt"]
 [ext_resource type="Script" path="res://file_parser.gd" id="3_7srqc"]
 [ext_resource type="AudioStream" uid="uid://d0p44rs1drrwb" path="res://assets/Sounds/253595__thoribass__notification1-freesound.wav" id="4_imiym"]
+[ext_resource type="PackedScene" uid="uid://gpctyu3wadv3" path="res://pop_up_window.tscn" id="5_n2uvr"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_aritp")
@@ -18,3 +19,6 @@ script = ExtResource("3_7srqc")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_imiym")
+
+[node name="PopUpWindow" parent="." instance=ExtResource("5_n2uvr")]
+visible = false
