@@ -23,6 +23,7 @@ signal time_out()
 @onready var file_handler:Node = get_node("FileParser")
 @onready var main_time = file_handler.get_setting_main_time()
 @onready var snooze_time = file_handler.get_setting_snooze_time()
+@onready var snooze_limit = file_handler.get_setting_snooze_limit()
 
 
 func _ready():
@@ -88,8 +89,8 @@ func _on_setting_main_timer_updated(new_main_time: float) -> void:
 	
 func _on_snooze_timer_updated(new_snooze_time: float) -> void:
 	print("new snooze time: " + str(new_snooze_time))
-	#TODO: add function for updating settings file
+	file_handler.set_settings_snooze_timer(new_snooze_time)
 
 func _on_snooze_limit_updated(new_snooze_limit: int) -> void:
 	print("new snooze limit: " + str(new_snooze_limit))
-	#TODO: add function for settings max number of snooze times
+	file_handler.set_settings_snooze_limit(new_snooze_limit)

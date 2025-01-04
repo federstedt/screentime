@@ -1,6 +1,8 @@
 {
 	"settings": {
-		"main_time": 0,
-		"snooze_time": 10
+		"admin_passwd": "Pelikan1",
+		"main_time": 10,
+		"snooze_limit": 3,
+		"snooze_time": 5
 	}
 }
