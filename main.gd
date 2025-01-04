@@ -7,13 +7,19 @@ signal time_out()
 #Exports
 #@export var main_time:float = 10
 
-#Onready
+#Onready locals
 @onready var main_timer:Timer = get_node("MainTimer")  # Referens till din TimerNode
+@onready var time_elapsed := 0.0
+@onready var audiostream_player: AudioStreamPlayer = get_node("AudioStreamPlayer")
+@onready var times_snoozed:int = 0
+@onready var admin_locked: bool = true
+
+# BaseGUI
+@onready var base_gui_node: Control = get_node("BaseGUI")
 @onready var reset_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/ResetButton")
 @onready var pause_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/PauseButton")
-@onready var time_elapsed := 0.0
-@onready var base_gui_node: Control = get_node("BaseGUI")
-@onready var audiostream_player: AudioStreamPlayer = get_node("AudioStreamPlayer")
+@onready var lock_button: Button = get_node("BaseGUI/LockButton")
+
 
 #window
 @onready var popup_window: Window = $PopUpWindow
@@ -25,15 +31,15 @@ signal time_out()
 @onready var main_time = file_handler.get_setting_main_time()
 @onready var snooze_time = file_handler.get_setting_snooze_time()
 @onready var snooze_limit = file_handler.get_setting_snooze_limit()
+@onready var admin_passwd = file_handler.get_setting_admin_passwd()
 
-# local vars
-@onready var times_snoozed:int = 0
 
 func _ready():
 	set_main_timer(main_time)
 	main_timer.start()  # Starta timern
 	main_timer.connect("timeout", Callable(self, "_on_timeout"))  # Koppla timeout-signalen
-	# Connect buttons
+
+	# Connect buttons signals
 	reset_button.connect("pressed", Callable(self, "_on_reset_pressed"))
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	popup_snooze_button.connect("pressed", Callable(self, "_on_popup_snooze_pressed"))
@@ -42,6 +48,7 @@ func _ready():
 	base_gui_node.connect("setting_main_timer_updated", Callable(self, "_on_setting_main_timer_updated"))
 	base_gui_node.connect("setting_snooze_timer_updated", Callable(self, "_on_snooze_timer_updated"))
 	base_gui_node.connect("setting_snooze_limit_updated", Callable(self, "_on_snooze_limit_updated"))
+	base_gui_node.connect("admin_passwd_submitted", Callable(self, "_on_admin_login_submitted"))
 
 func _process(delta: float):
 	time_elapsed += delta
@@ -57,7 +64,21 @@ func _on_popup_snooze_pressed() -> void:
 		popup_snooze_button.disabled = true
 		popup_limit_text.visible = true
 	snooze()
-	
+
+func _on_admin_login_submitted(passwd: String) -> void:
+	if check_admin_login(passwd):
+		print('Login success!')
+		admin_locked = false
+		base_gui_node.unlock_icon()
+	else:
+		print('Failed to login')
+
+func check_admin_login(passwd: String) -> bool:
+	if passwd == admin_passwd:
+		return true
+	else:
+		return false
+
 func snooze() -> void:
 	set_main_timer(snooze_time)
 	reset_main_timer()

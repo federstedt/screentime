@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbm14a3ewpmqo"]
+
+[ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_f0nl7"]
+
+[node name="AdminLoginPage" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="AdminColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.228
+anchor_right = 0.81
+anchor_bottom = 1.0
+offset_left = -4.65601
+offset_right = 1.87994
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.811765, 0.811765, 0.811765, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 260.0
+offset_right = -2.0
+offset_bottom = -310.0
+size_flags_vertical = 4
+theme = ExtResource("1_f0nl7")
+bbcode_enabled = true
+text = "[center]Admin password[/center]"
+fit_content = true
+
+[node name="AdminPasswdLine" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.391
+anchor_top = 0.585
+anchor_right = 0.647
+anchor_bottom = 0.65
+offset_left = -8.72101
+offset_top = -20.08
+offset_right = -19.257
+offset_bottom = -26.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+placeholder_text = "enter password"
+
+[node name="AdminSubmit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = 121.0
+offset_right = 24.5
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Submit"

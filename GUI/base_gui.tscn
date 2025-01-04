@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://daf17v3biv5t3"]
+[gd_scene load_steps=7 format=3 uid="uid://daf17v3biv5t3"]
 
 [ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_ibtl7"]
 [ext_resource type="Script" path="res://GUI/base_gui.gd" id="1_k2ife"]
 [ext_resource type="FontFile" uid="uid://c06jthjawvu8v" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="3_n1hj4"]
 [ext_resource type="PackedScene" uid="uid://ceaoo34gyk4pv" path="res://settings.tscn" id="3_ytfr8"]
+[ext_resource type="PackedScene" uid="uid://bojqo3lrpkj28" path="res://side_menu.tscn" id="4_a721g"]
+[ext_resource type="PackedScene" uid="uid://cbm14a3ewpmqo" path="res://admin_login_page.tscn" id="6_owls4"]
 
 [node name="BaseGUI" type="Control"]
 layout_mode = 3
@@ -101,42 +103,11 @@ layout_mode = 2
 visible = false
 layout_mode = 1
 
-[node name="SideMenu" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 205.0
-grow_vertical = 2
-size_flags_horizontal = 0
-
-[node name="MenuButton" type="Button" parent="SideMenu"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_ibtl7")
-theme_override_colors/font_disabled_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/font_focus_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/font_color = Color(0.355314, 0.355314, 0.355314, 1)
-theme_override_colors/font_outline_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_normal_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_focus_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_hover_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_colors/icon_disabled_color = Color(0.356863, 0.356863, 0.356863, 1)
-theme_override_fonts/font = ExtResource("3_n1hj4")
-text = ""
-flat = true
-
-[node name="MainMenu" type="VBoxContainer" parent="SideMenu"]
-visible = false
-layout_mode = 2
-
-[node name="SettingsButton" type="Button" parent="SideMenu/MainMenu"]
-layout_mode = 2
-theme = ExtResource("1_ibtl7")
-text = "Settings"
+[node name="SideMenu" parent="." instance=ExtResource("4_a721g")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+grow_vertical = 1
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 1
@@ -149,3 +120,27 @@ grow_horizontal = 0
 theme = ExtResource("1_ibtl7")
 theme_override_fonts/font = ExtResource("3_n1hj4")
 text = ""
+
+[node name="LockButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.918
+anchor_right = 0.962
+anchor_bottom = 0.086
+offset_left = 0.463989
+offset_right = -0.224121
+offset_bottom = 0.271999
+grow_horizontal = 0
+theme = ExtResource("1_ibtl7")
+theme_override_fonts/font = ExtResource("3_n1hj4")
+text = ""
+
+[node name="AdminLoginPage" parent="." instance=ExtResource("6_owls4")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.223
+anchor_top = 0.002
+anchor_right = 0.883
+offset_left = -44.896
+offset_top = -2.296
+offset_right = 4.784

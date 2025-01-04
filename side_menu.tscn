@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bojqo3lrpkj28"]
+
+[ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_oxeiq"]
+[ext_resource type="FontFile" uid="uid://c06jthjawvu8v" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_bxjc7"]
+
+[node name="SideMenu" type="VBoxContainer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 205.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_oxeiq")
+theme_override_colors/font_disabled_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/font_focus_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/font_color = Color(0.355314, 0.355314, 0.355314, 1)
+theme_override_colors/font_outline_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_normal_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_focus_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_hover_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_colors/icon_disabled_color = Color(0.356863, 0.356863, 0.356863, 1)
+theme_override_fonts/font = ExtResource("2_bxjc7")
+text = ""
+flat = true
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme = ExtResource("1_oxeiq")
+text = "Settings"
