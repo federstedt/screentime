@@ -17,7 +17,8 @@ signal time_out()
 
 #window
 @onready var popup_window: Window = $PopUpWindow
-@onready var popup_snooze_button: Button = get_node("PopUpWindow/SnoozeButton")
+@onready var popup_snooze_button: Button = get_node("PopUpWindow/PopUpGui/SnoozeButton")
+@onready var popup_limit_text: RichTextLabel = get_node("PopUpWindow/PopUpGui/SnoozeLimitText")
 
 # load settings
 @onready var file_handler:Node = get_node("FileParser")
@@ -25,6 +26,8 @@ signal time_out()
 @onready var snooze_time = file_handler.get_setting_snooze_time()
 @onready var snooze_limit = file_handler.get_setting_snooze_limit()
 
+# local vars
+@onready var times_snoozed:int = 0
 
 func _ready():
 	set_main_timer(main_time)
@@ -47,6 +50,12 @@ func _process(delta: float):
 
 func _on_popup_snooze_pressed() -> void:
 	hide_popup_window()
+	times_snoozed += 1
+	if times_snoozed >= snooze_limit:
+		# disable snooze button, show different text
+		print('Snooze limit reached')
+		popup_snooze_button.disabled = true
+		popup_limit_text.visible = true
 	snooze()
 	
 func snooze() -> void:
