@@ -17,6 +17,8 @@ Linux dev: ~/.var/app/org.godotengine.Godot/data/godot/app_userdata
 Windows: %APPDATA%\Godot\app_userdata\<project_name>\
 macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/
 
+# Overview
+![Alt text](app_overview.png)
 
 # Refs
 pop up window
