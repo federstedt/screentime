@@ -74,12 +74,17 @@ func _on_time_out() -> void:
 
 func _on_timer_updated(time_left: float) -> void:
 	if time_left > 0:
-		var text = str(round(time_left)) + " seconds left"  # Uppdatera label
+		var minutes = int(time_left / 60)  # Hela minuter
+		var seconds = int(time_left) % 60  # Resterande sekunder
+		var text = "Time Left: %d min %d sec" % [minutes, seconds]  # Uppdatera Label
+		#var text = str(round(time_left)) + " seconds left"  # Uppdatera label
 		timeleft_label.text = "[center]" + text + "[/center]"
 
 func _on_elapsed_updated(time:float):
 	var label: RichTextLabel = get_node("MainPage/MainContainer/TimeElapsedText")
-	var text = "Elapsed: " + str(round(time))
+	var minutes = int(time / 60)  # Hela minuter
+	var seconds = int(time) % 60  # Resterande sekunder
+	var text = "Total: %d min %d sec" % [minutes, seconds]  # Uppdatera Label
 	label.text = "[center]" + text + "[/center]"
 	
 func _on_pause_pressed() -> void:
