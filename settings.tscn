@@ -43,6 +43,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
 placeholder_text = "Snooze time"
 expand_to_text_length = true
 
@@ -58,6 +59,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
 placeholder_text = "Snooze times"
 expand_to_text_length = true
 
@@ -73,19 +75,40 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
 placeholder_text = "Time limit"
 alignment = 1
 expand_to_text_length = true
+
+[node name="AdminPasswdLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
+bbcode_enabled = true
+text = "[center]Admin Password[/center]"
+fit_content = true
+
+[node name="AdminPasswdEntry" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
+placeholder_text = "New password"
+alignment = 1
+expand_to_text_length = true
+secret = true
 
 [node name="SaveSettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
 text = "Save"
 
 [node name="ExitSettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_sx6gv")
 text = "Exit"
 metadata/_edit_use_anchors_ = true

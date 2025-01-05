@@ -1,5 +1,10 @@
 [gd_resource type="Theme" format=3 uid="uid://cpswmnemqt5dm"]
 
 [resource]
-default_font_size = 48
+default_font_size = 30
 RichTextLabel/colors/default_color = Color(0.244776, 0.244776, 0.244776, 1)
+RichTextLabel/font_sizes/bold_font_size = 30
+RichTextLabel/font_sizes/bold_italics_font_size = 30
+RichTextLabel/font_sizes/italics_font_size = 30
+RichTextLabel/font_sizes/mono_font_size = 30
+RichTextLabel/font_sizes/normal_font_size = 30
