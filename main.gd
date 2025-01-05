@@ -50,6 +50,8 @@ func _ready():
 	base_gui_node.connect("setting_main_timer_updated", Callable(self, "_on_setting_main_timer_updated"))
 	base_gui_node.connect("setting_snooze_timer_updated", Callable(self, "_on_snooze_timer_updated"))
 	base_gui_node.connect("setting_snooze_limit_updated", Callable(self, "_on_snooze_limit_updated"))
+	base_gui_node.connect("setting_admin_passwd_updated", Callable(self, "_on_new_admin_passwd_submitted"))
+
 	base_gui_node.connect("admin_passwd_submitted", Callable(self, "_on_admin_login_submitted"))
 
 func _process(delta: float):
@@ -62,7 +64,6 @@ func _on_popup_snooze_pressed() -> void:
 	times_snoozed += 1
 	if times_snoozed >= snooze_limit:
 		# disable snooze button, show different text
-		print('Snooze limit reached')
 		popup_snooze_button.disabled = true
 		popup_limit_text.visible = true
 	snooze()
@@ -87,7 +88,8 @@ func _on_admin_login_submitted(passwd: String) -> void:
 	if check_admin_login(passwd):
 		unlock_admin_mode()
 	else:
-		print('Failed to login')
+		pass
+		#TODO: add error indication to GUI
 
 func check_admin_login(passwd: String) -> bool:
 	if passwd == admin_passwd:
@@ -134,9 +136,11 @@ func _on_setting_main_timer_updated(new_main_time: float) -> void:
 	reset_main_timer()
 	
 func _on_snooze_timer_updated(new_snooze_time: float) -> void:
-	print("new snooze time: " + str(new_snooze_time))
 	file_handler.set_settings_snooze_timer(new_snooze_time)
 
 func _on_snooze_limit_updated(new_snooze_limit: int) -> void:
-	print("new snooze limit: " + str(new_snooze_limit))
 	file_handler.set_settings_snooze_limit(new_snooze_limit)
+
+func _on_new_admin_passwd_submitted(new_admin_passwd: String) -> void:
+	file_handler.set_settings_admin_passwd(new_admin_passwd)
+	admin_passwd = file_handler.get_setting_admin_passwd()

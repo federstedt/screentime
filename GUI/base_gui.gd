@@ -4,6 +4,7 @@ extends Control
 signal setting_main_timer_updated(new_main_time: float)
 signal setting_snooze_timer_updated(new_snooze_time: float)
 signal setting_snooze_limit_updated(new_snooze_limit: int)
+signal setting_admin_passwd_updated(new_admin_passwd: String)
 signal admin_passwd_submitted(passwd: String)
 
 # Connect vars to elemets
@@ -63,7 +64,6 @@ func switch_lock_icon() -> void:
 		lock_button.text  = ""
 
 func _on_time_out() -> void:
-	print('Time is out!')
 	var text = "Time is out!"
 	timeleft_label.text = "[center]" + text + "[/center]"
 
@@ -124,19 +124,23 @@ func _on_settings_submit() -> void:
 	var snooze_time_entry: LineEdit = get_node("SettingsPage/VBoxContainer/SnoozeTimeEntry")
 	var snooze_limit_entry: LineEdit = get_node("SettingsPage/VBoxContainer/SnoozeLimitEntry")
 	var time_limit_entry: LineEdit = get_node("SettingsPage/VBoxContainer/TimeLimitEntry")
+	var admin_passwd_entry: LineEdit = get_node("SettingsPage/VBoxContainer/AdminPasswdEntry")
 	
 	#TODO: add verification of content type, now i just convert blindly
-	var new_main_time = float(time_limit_entry.text)
-	var new_snooze_time = float(snooze_time_entry.text)
+	# converts minutes to seconds
+	var new_main_time = float(time_limit_entry.text) * 60
+	var new_snooze_time = float(snooze_time_entry.text) * 60
 	var new_snooze_limit = int(snooze_limit_entry.text)
-	if typeof(new_main_time) == TYPE_FLOAT:
+	var new_admin_passwd = String(admin_passwd_entry.text)
+	if new_main_time > 0:
 		emit_signal("setting_main_timer_updated", new_main_time)
-	if typeof(new_snooze_time) == TYPE_FLOAT:
+	if new_snooze_time > 0:
 		emit_signal("setting_snooze_timer_updated", new_snooze_time)
-	if typeof(new_snooze_limit) == TYPE_INT:
-		#print("attemting to signal: " + str(new_snooze_limit))
+	if new_snooze_limit > 0:
 		emit_signal("setting_snooze_limit_updated", new_snooze_limit)
 	
+	if new_admin_passwd.length() > 0:
+		emit_signal("setting_admin_passwd_updated", new_admin_passwd)
 	show_main_page()
 	toggle_main_menu()
 

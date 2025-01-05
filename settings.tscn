@@ -44,7 +44,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
-placeholder_text = "Snooze time"
+placeholder_text = "Minutes"
 expand_to_text_length = true
 
 [node name="Snoozelimit label" type="RichTextLabel" parent="VBoxContainer"]
@@ -60,7 +60,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
-placeholder_text = "Snooze times"
+placeholder_text = "Number of times"
 expand_to_text_length = true
 
 [node name="Time Label" type="RichTextLabel" parent="VBoxContainer"]
@@ -76,7 +76,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
-placeholder_text = "Time limit"
+placeholder_text = "Minutes"
 alignment = 1
 expand_to_text_length = true
 
