@@ -1,5 +1,7 @@
 # Screen time app
 To keep track of pause time.  
+
+Might be implemented:
 To close apps when parant control is active after set time.
 
 # Usage
