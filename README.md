@@ -2,6 +2,9 @@
 To keep track of pause time.  
 To close apps when parant control is active after set time.
 
+# Usage
+Default password is admin.  
+Set timer and snooze timer and max snooze in settings.  
 
 
 ## Attribute
@@ -11,11 +14,11 @@ To close apps when parant control is active after set time.
 
 # settings store
 
-Plats för user://
-Linux: ~/.local/share/godot/app_userdata/<project_name>/
-Linux dev: ~/.var/app/org.godotengine.Godot/data/godot/app_userdata
-Windows: %APPDATA%\Godot\app_userdata\<project_name>\
-macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/
+Plats för user://   
+Linux: ~/.local/share/godot/app_userdata/<project_name>/  
+Linux dev: ~/.var/app/org.godotengine.Godot/data/godot/app_userdata  
+Windows: %APPDATA%\Godot\app_userdata\<project_name>\  
+macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/  
 
 # Overview
 ![Alt text](app_overview.png)
@@ -23,4 +26,3 @@ macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/
 # Refs
 pop up window
 https://www.youtube.com/watch?v=qo8SDCuVCoY
-
