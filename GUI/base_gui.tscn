@@ -83,11 +83,13 @@ alignment = 1
 [node name="ResetButton" type="Button" parent="MainPage/MainContainer/ButtonContainer"]
 layout_mode = 2
 theme = ExtResource("1_ibtl7")
+disabled = true
 text = "Reset"
 
 [node name="PauseButton" type="Button" parent="MainPage/MainContainer/ButtonContainer"]
 layout_mode = 2
 theme = ExtResource("1_ibtl7")
+disabled = true
 text = "Pause"
 metadata/_edit_use_anchors_ = true
 

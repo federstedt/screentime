@@ -78,11 +78,15 @@ func unlock_admin_mode() -> void:
 	admin_locked = false
 	base_gui_node.switch_lock_icon()
 	settings_button.disabled = false
+	reset_button.disabled = false
+	pause_button.disabled = false
 
 func lock_admin_mode() -> void:
 	admin_locked = true
 	base_gui_node.switch_lock_icon()
 	settings_button.disabled = true
+	reset_button.disabled = true
+	pause_button.disabled = true
 
 func _on_admin_login_submitted(passwd: String) -> void:
 	if check_admin_login(passwd):
