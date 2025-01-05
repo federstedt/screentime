@@ -37,4 +37,5 @@ layout_mode = 2
 [node name="SettingsButton" type="Button" parent="MainMenu"]
 layout_mode = 2
 theme = ExtResource("1_oxeiq")
+disabled = true
 text = "Settings"

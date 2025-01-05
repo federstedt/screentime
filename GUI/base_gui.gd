@@ -41,7 +41,6 @@ func _ready():
 	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
 	menu_button.connect("pressed", Callable(self, "_on_mainmenu_pressed"))
 	exit_button.connect("pressed", Callable(self, "_on_exit_pressed"))
-	lock_button.connect("pressed", Callable(self, "_on_lock_pressed"))
 	
 	# Connect settings page
 	save_settings_button.connect("pressed", Callable(self, "_on_settings_submit"))
@@ -56,11 +55,7 @@ func _on_exit_pressed() -> void:
 func exit_app() -> void:
 	get_tree().quit()
 
-func _on_lock_pressed() -> void:
-	# load admin login
-	show_admin_page()
-
-func unlock_icon() -> void:
+func switch_lock_icon() -> void:
 	button_locked = !button_locked
 	if button_locked == false:
 		lock_button.text = ""

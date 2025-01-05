@@ -27,7 +27,9 @@ enabled=PackedStringArray("res://addons/fontawesome/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://GUI/": "orange"
+"res://GUI/": "orange",
+"res://assets/": "green",
+"res://export/": "gray"
 }
 
 [rendering]

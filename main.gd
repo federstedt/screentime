@@ -8,7 +8,7 @@ signal time_out()
 #@export var main_time:float = 10
 
 #Onready locals
-@onready var main_timer:Timer = get_node("MainTimer")  # Referens till din TimerNode
+@onready var main_timer:Timer = get_node("MainTimer")
 @onready var time_elapsed := 0.0
 @onready var audiostream_player: AudioStreamPlayer = get_node("AudioStreamPlayer")
 @onready var times_snoozed:int = 0
@@ -19,10 +19,11 @@ signal time_out()
 @onready var reset_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/ResetButton")
 @onready var pause_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/PauseButton")
 @onready var lock_button: Button = get_node("BaseGUI/LockButton")
+@onready var settings_button: Button = get_node("BaseGUI/SideMenu/MainMenu/SettingsButton")
 
 
 #window
-@onready var popup_window: Window = $PopUpWindow
+@onready var popup_window: Window = $PopUpWindow # undra vad för/nackdel är med detta sättet vs get_node ?
 @onready var popup_snooze_button: Button = get_node("PopUpWindow/PopUpGui/SnoozeButton")
 @onready var popup_limit_text: RichTextLabel = get_node("PopUpWindow/PopUpGui/SnoozeLimitText")
 
@@ -43,6 +44,7 @@ func _ready():
 	reset_button.connect("pressed", Callable(self, "_on_reset_pressed"))
 	pause_button.connect("pressed", Callable(self, "_on_pause_pressed"))
 	popup_snooze_button.connect("pressed", Callable(self, "_on_popup_snooze_pressed"))
+	lock_button.connect("pressed", Callable(self, "_on_lock_button_pressed"))
 	
 	# connect other signals from GUI node
 	base_gui_node.connect("setting_main_timer_updated", Callable(self, "_on_setting_main_timer_updated"))
@@ -65,11 +67,25 @@ func _on_popup_snooze_pressed() -> void:
 		popup_limit_text.visible = true
 	snooze()
 
+func _on_lock_button_pressed() -> void:
+	if admin_locked:
+		base_gui_node.show_admin_page()
+	else:
+		lock_admin_mode()
+
+func unlock_admin_mode() -> void:
+	admin_locked = false
+	base_gui_node.switch_lock_icon()
+	settings_button.disabled = false
+
+func lock_admin_mode() -> void:
+	admin_locked = true
+	base_gui_node.switch_lock_icon()
+	settings_button.disabled = true
+
 func _on_admin_login_submitted(passwd: String) -> void:
 	if check_admin_login(passwd):
-		print('Login success!')
-		admin_locked = false
-		base_gui_node.unlock_icon()
+		unlock_admin_mode()
 	else:
 		print('Failed to login')
 
