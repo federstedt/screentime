@@ -12,11 +12,10 @@ To close apps when parant control is active after set time.
 # settings store
 
 Plats för user://
-    Linux: ~/.local/share/godot/app_userdata/<project_name>/
-    ~/.var/app/org.godotengine.Godot/data/godot/app_userdata
-    Windows: %APPDATA%\Godot\app_userdata\<project_name>\
-    macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/
-    Utveckling (Godot Editor): Det är samma user:// som ovan, men med mappen baserat på projektets namn.
+Linux: ~/.local/share/godot/app_userdata/<project_name>/
+Linux dev: ~/.var/app/org.godotengine.Godot/data/godot/app_userdata
+Windows: %APPDATA%\Godot\app_userdata\<project_name>\
+macOS: ~/Library/Application Support/Godot/app_userdata/<project_name>/
 
 
 # Refs
