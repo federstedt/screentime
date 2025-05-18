@@ -13,10 +13,14 @@ config_version=5
 config/name="Screen time"
 config/version="0.2.0.0"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://assets/clock-icon.png"
 config/windows_native_icon="res://assets/windows-icon.ico"
+
+[autoload]
+
+GlobalSignal="*res://global_signal.tscn"
 
 [display]
 

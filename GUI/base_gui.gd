@@ -6,6 +6,7 @@ signal setting_snooze_timer_updated(new_snooze_time: float)
 signal setting_snooze_limit_updated(new_snooze_limit: int)
 signal setting_admin_passwd_updated(new_admin_passwd: String)
 signal admin_passwd_submitted(passwd: String)
+signal refresh_pressed()
 
 # Connect vars to elemets
 # Buttons
@@ -14,6 +15,9 @@ signal admin_passwd_submitted(passwd: String)
 @onready var exit_button:Button = $ExitButton
 @onready var lock_button: Button = $LockButton
 @onready var button_locked: bool = true
+@onready var refresh_button: Button = %RefreshButton
+
+@onready var run_list_label: Label = %RunList
 
 @onready var main_page: Control = get_node("MainPage")
 @onready var menu_button:Button = get_node("SideMenu/MenuButton")
@@ -21,8 +25,9 @@ signal admin_passwd_submitted(passwd: String)
 
 # Settingspage
 @onready var settings_page: Control = get_node("SettingsPage")
-@onready var save_settings_button: Button = get_node("SettingsPage/VBoxContainer/SaveSettingsButton")
-@onready var exit_settings_button: Button = get_node("SettingsPage/VBoxContainer/ExitSettingsButton")
+@onready var save_settings_button: Button = get_node("SettingsPage/HBoxContainer/VBoxContainer/SaveSettingsButton")
+@onready var exit_settings_button: Button = get_node("SettingsPage/HBoxContainer/VBoxContainer/ExitSettingsButton")
+@onready var api_status_label : Label = get_node("SettingsPage/HBoxContainer/VBoxContainer2/APIStatus")
 
 @onready var timeleft_label: RichTextLabel = get_node("MainPage/MainContainer/TimeLeftText")
 
@@ -42,13 +47,27 @@ func _ready():
 	settings_button.connect("pressed", Callable(self, "_on_settings_pressed"))
 	menu_button.connect("pressed", Callable(self, "_on_mainmenu_pressed"))
 	exit_button.connect("pressed", Callable(self, "_on_exit_pressed"))
-	
+	refresh_button.connect("pressed", Callable(self, "_on_refresh_pressed"))
+
 	# Connect settings page
 	save_settings_button.connect("pressed", Callable(self, "_on_settings_submit"))
 	exit_settings_button.connect("pressed", Callable(self, "_on_exit_settings_pressed"))
 
 	# Connect admin page
 	admin_submit_button.connect("pressed", Callable(self, "_on_admin_submit_pressed"))
+	
+	#Connect signals from global
+	GlobalSignal.api_status_update.connect(self._new_api_status)
+	GlobalSignal.running_game.connect(self._new_running_game)
+
+func _new_api_status(status: String) -> void:
+	api_status_label.text = status
+
+func _new_running_game(game: Dictionary) -> void:
+	run_list_label.text = game["name"] + " " + game["create_time"]
+
+func _on_refresh_pressed() -> void:
+	refresh_pressed.emit()
 
 func _on_exit_pressed() -> void:
 	exit_app()

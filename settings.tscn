@@ -19,19 +19,38 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.811765, 0.811765, 0.811765, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -302.0
-offset_right = 334.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Snoozetime label" type="RichTextLabel" parent="VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="API-header" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_sx6gv")
+text = "API Status: "
+
+[node name="APIStatus" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_sx6gv")
+text = "<unknown>"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Snoozetime label" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
@@ -39,7 +58,7 @@ bbcode_enabled = true
 text = "[center]Snooze time[/center]"
 fit_content = true
 
-[node name="SnoozeTimeEntry" type="LineEdit" parent="VBoxContainer"]
+[node name="SnoozeTimeEntry" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -47,7 +66,7 @@ theme = ExtResource("1_sx6gv")
 placeholder_text = "Minutes"
 expand_to_text_length = true
 
-[node name="Snoozelimit label" type="RichTextLabel" parent="VBoxContainer"]
+[node name="Snoozelimit label" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
@@ -55,7 +74,7 @@ bbcode_enabled = true
 text = "[center]Snooze limit[/center]"
 fit_content = true
 
-[node name="SnoozeLimitEntry" type="LineEdit" parent="VBoxContainer"]
+[node name="SnoozeLimitEntry" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -63,7 +82,7 @@ theme = ExtResource("1_sx6gv")
 placeholder_text = "Number of times"
 expand_to_text_length = true
 
-[node name="Time Label" type="RichTextLabel" parent="VBoxContainer"]
+[node name="Time Label" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
@@ -71,7 +90,7 @@ bbcode_enabled = true
 text = "[center]Time limit[/center]"
 fit_content = true
 
-[node name="TimeLimitEntry" type="LineEdit" parent="VBoxContainer"]
+[node name="TimeLimitEntry" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -80,7 +99,7 @@ placeholder_text = "Minutes"
 alignment = 1
 expand_to_text_length = true
 
-[node name="AdminPasswdLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="AdminPasswdLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
@@ -88,7 +107,7 @@ bbcode_enabled = true
 text = "[center]Admin Password[/center]"
 fit_content = true
 
-[node name="AdminPasswdEntry" type="LineEdit" parent="VBoxContainer"]
+[node name="AdminPasswdEntry" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -98,14 +117,14 @@ alignment = 1
 expand_to_text_length = true
 secret = true
 
-[node name="SaveSettingsButton" type="Button" parent="VBoxContainer"]
+[node name="SaveSettingsButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_sx6gv")
 text = "Save"
 
-[node name="ExitSettingsButton" type="Button" parent="VBoxContainer"]
+[node name="ExitSettingsButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

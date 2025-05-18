@@ -1,9 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://glxj8bfbd6i7"]
 
-[ext_resource type="Script" path="res://backend_com.gd" id="1_5i0me"]
+[ext_resource type="Script" uid="uid://d3783iv1wa8p2" path="res://backend_com.gd" id="1_5i0me"]
 
 [node name="BackendCom" type="Node"]
 script = ExtResource("1_5i0me")
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-unique_name_in_owner = true

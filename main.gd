@@ -15,11 +15,14 @@ signal time_out()
 @onready var admin_locked: bool = true
 
 # BaseGUI
-@onready var base_gui_node: Control = get_node("BaseGUI")
+#@onready var base_gui_node: Control = get_node("BaseGUI")
+@onready var base_gui_node: Control = %BaseGUI
 @onready var reset_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/ResetButton")
 @onready var pause_button:Button = get_node("BaseGUI/MainPage/MainContainer/ButtonContainer/PauseButton")
 @onready var lock_button: Button = get_node("BaseGUI/LockButton")
 @onready var settings_button: Button = get_node("BaseGUI/SideMenu/MainMenu/SettingsButton")
+
+
 
 
 #window
@@ -33,6 +36,8 @@ signal time_out()
 @onready var snooze_time = file_handler.get_setting_snooze_time()
 @onready var snooze_limit = file_handler.get_setting_snooze_limit()
 @onready var admin_passwd = file_handler.get_setting_admin_passwd()
+
+@onready var backend_com: Node = %BackendCom
 
 
 func _ready():
@@ -53,11 +58,28 @@ func _ready():
 	base_gui_node.connect("setting_admin_passwd_updated", Callable(self, "_on_new_admin_passwd_submitted"))
 
 	base_gui_node.connect("admin_passwd_submitted", Callable(self, "_on_admin_login_submitted"))
+	base_gui_node.refresh_pressed.connect(self._refresh_running_procs)
+	# check if backend API is running
+	check_backend()
+	# check running game
+	check_running_game()
+	
+
 
 func _process(delta: float):
 	time_elapsed += delta
 	emit_signal("time_elapsed_updated", time_elapsed)
 	emit_signal("timer_updated", main_timer.time_left)  # Skicka kontinuerligt tid kvar som signal
+
+func check_backend() -> void:
+	backend_com.get_backend_status()
+
+func _refresh_running_procs() -> void:
+	check_running_game()
+
+func check_running_game() -> void:
+	backend_com.get_running_procs()
+	
 
 func _on_popup_snooze_pressed() -> void:
 	hide_popup_window()

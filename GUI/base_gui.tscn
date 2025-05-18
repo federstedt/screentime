@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://daf17v3biv5t3"]
 
 [ext_resource type="Theme" uid="uid://cpswmnemqt5dm" path="res://GUI/main_theme.tres" id="1_ibtl7"]
-[ext_resource type="Script" path="res://GUI/base_gui.gd" id="1_k2ife"]
+[ext_resource type="Script" uid="uid://dck1lq17o1maq" path="res://GUI/base_gui.gd" id="1_k2ife"]
 [ext_resource type="FontFile" uid="uid://c06jthjawvu8v" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="3_n1hj4"]
 [ext_resource type="PackedScene" uid="uid://ceaoo34gyk4pv" path="res://settings.tscn" id="3_ytfr8"]
 [ext_resource type="PackedScene" uid="uid://bojqo3lrpkj28" path="res://side_menu.tscn" id="4_a721g"]
@@ -74,6 +74,19 @@ theme = ExtResource("1_ibtl7")
 bbcode_enabled = true
 text = "[center]0[/center]"
 
+[node name="RunningLabel" type="Label" parent="MainPage/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_ibtl7")
+text = "Running game:"
+
+[node name="RunList" type="Label" parent="MainPage/MainContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_ibtl7")
+text = "unkown"
+
 [node name="ButtonContainer" type="HBoxContainer" parent="MainPage/MainContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
@@ -93,8 +106,12 @@ disabled = true
 text = "Pause"
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MainPage/MainContainer"]
+[node name="RefreshButton" type="Button" parent="MainPage/MainContainer/ButtonContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("1_ibtl7")
+text = "Refresh"
+metadata/_edit_use_anchors_ = true
 
 [node name="SettingsPage" parent="." instance=ExtResource("3_ytfr8")]
 visible = false

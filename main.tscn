@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvf36w0vhxh67"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_aritp"]
+[ext_resource type="Script" uid="uid://dorijspdxukrr" path="res://main.gd" id="1_aritp"]
 [ext_resource type="PackedScene" uid="uid://daf17v3biv5t3" path="res://GUI/base_gui.tscn" id="1_mynnt"]
-[ext_resource type="Script" path="res://file_parser.gd" id="3_7srqc"]
+[ext_resource type="Script" uid="uid://bujlfkp6dvk1h" path="res://file_parser.gd" id="3_7srqc"]
 [ext_resource type="AudioStream" uid="uid://d0p44rs1drrwb" path="res://assets/Sounds/253595__thoribass__notification1-freesound.wav" id="4_imiym"]
 [ext_resource type="PackedScene" uid="uid://gpctyu3wadv3" path="res://pop_up_window.tscn" id="5_n2uvr"]
 [ext_resource type="PackedScene" uid="uid://glxj8bfbd6i7" path="res://backend_com.tscn" id="6_g3r8r"]
@@ -11,6 +11,7 @@
 script = ExtResource("1_aritp")
 
 [node name="BaseGUI" parent="." instance=ExtResource("1_mynnt")]
+unique_name_in_owner = true
 
 [node name="MainTimer" type="Timer" parent="."]
 one_shot = true
@@ -25,3 +26,4 @@ stream = ExtResource("4_imiym")
 visible = false
 
 [node name="BackendCom" parent="." instance=ExtResource("6_g3r8r")]
+unique_name_in_owner = true
