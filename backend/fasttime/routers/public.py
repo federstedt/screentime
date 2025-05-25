@@ -48,7 +48,7 @@ async def get_proc_by_name_route(proc_name:str):
     return JSONResponse(content=proc_dict)
 
 
-@router.post("/procs/{pid}")
+@router.post("/procs/kill/{pid}")
 async def kill_proc_by_pid_route(pid: int):
     """
     Kill process by using pid.
