@@ -53,6 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme = ExtResource("1_f0nl7")
 placeholder_text = "enter password"
 secret = true
 
@@ -69,4 +70,5 @@ offset_right = 24.5
 offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_f0nl7")
 text = "Submit"

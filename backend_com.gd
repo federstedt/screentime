@@ -65,7 +65,8 @@ func _running_procs_call_completed(result, response_code, headers, body) -> void
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	#print(json["name"])
 	#print(json)
-	check_for_game(json)
+	if json != null:
+		check_for_game(json)
 	# remove req_node when finished
 	var http_req = get_node("running_procs_call")
 	http_req.queue_free()
