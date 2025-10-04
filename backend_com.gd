@@ -13,15 +13,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func check_for_game(proc_list: Array) -> void:
-	#{ "pid": 69025.0, "name": "Godot_v4.4.1-stable_linux.x86_64", "username": "federov" }
-	for proc in proc_list:
-		if proc["username"] != "root":
-			#print(proc["name"])
-			if "Godot" in proc["name"]:
-				print(proc)
-				#print(type_string(typeof(proc)))
-				GlobalSignal.running_game.emit(proc)
+# func check_for_game(proc_list: Array) -> void:
+# 	#{ "pid": 69025.0, "name": "Godot_v4.4.1-stable_linux.x86_64", "username": "federov" }
+# 	for proc in proc_list:
+# 		if proc["username"] != "root":
+# 			#print(proc["name"])
+# 			if "steam" in proc["name"]:
+# 				print(proc)
+# 				#print(type_string(typeof(proc)))
+# 				GlobalSignal.running_game.emit(proc)
+
 
 func get_backend_status() -> void:
 	 # Create an HTTP request node and connect its completion signal.
@@ -49,6 +50,17 @@ func get_running_procs() -> void:
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
+func get_running_games() -> void:
+	# create a HTTP request node and connect is completions signal.
+	var http_req = HTTPRequest.new()
+	add_child(http_req)
+	http_req.name = "running_games_call"
+	http_req.request_completed.connect(self._running_games_call_completed)
+	var endpoint  = "http://localhost:8000/v1/public/procs/games/"
+	var error = http_req.request(endpoint)
+	if error != OK:
+		push_error("An error occured in the HTTP request for running games")
+
 func _backend_status_check_completed(result, response_code, headers, body) -> void:
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
@@ -62,13 +74,37 @@ func _backend_status_check_completed(result, response_code, headers, body) -> vo
 	
 
 func _running_procs_call_completed(result, response_code, headers, body) -> void:
+	# Get all running process. This is for future use
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	#print(json["name"])
 	#print(json)
 	if json != null:
-		check_for_game(json)
+		#check_for_game(json)
+		pass
 	# remove req_node when finished
 	var http_req = get_node("running_procs_call")
 	http_req.queue_free()
 	
+func _running_games_call_completed(result, response_code, headers, body) -> void:
+	# parse the data from API call
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	if json != null:
+		self._push_running_games(json)
+	# remove the request node when finished
+	var http_req = get_node("running_games_call")
+	http_req.queue_free()
+
+func _push_running_games(proc_dict: Dictionary) -> void:
+	# push running games via signal
+	print("Running games:")
+	print(proc_dict)
+	# if proc_dict is empty no games are running
+	if proc_dict.size() < 1:
+		var placehold_dict := {"name": "None"}
+		GlobalSignal.running_game.emit(placehold_dict)
+	for proc in proc_dict:
+		print(proc)
+		print(typeof(proc))
+		# emit signal. pass dict where proc name is key of dict in dict
+		GlobalSignal.running_game.emit(proc_dict[proc])
 	

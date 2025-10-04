@@ -1,5 +1,7 @@
 extends Node
 
+### THIS IS THE MAIN GAME NODE / PROCESS
+
 # ref for timers: https://gamedevbeginner.com/how-to-make-a-timer-in-godot-count-up-down-in-minutes-seconds/
 signal timer_updated(time_left: float)
 signal time_elapsed_updated(time: float)
@@ -62,7 +64,7 @@ func _ready():
 	# check if backend API is running
 	check_backend()
 	# check running game
-	check_running_game()
+	check_running_games()
 	
 
 
@@ -75,11 +77,11 @@ func check_backend() -> void:
 	backend_com.get_backend_status()
 
 func _refresh_running_procs() -> void:
-	check_running_game()
+	#backend_com.get_running_procs()
+	check_running_games()
 
-func check_running_game() -> void:
-	backend_com.get_running_procs()
-	
+func check_running_games() -> void:
+	backend_com.get_running_games()
 
 func _on_popup_snooze_pressed() -> void:
 	hide_popup_window()

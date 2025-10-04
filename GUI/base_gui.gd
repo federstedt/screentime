@@ -58,13 +58,16 @@ func _ready():
 	
 	#Connect signals from global
 	GlobalSignal.api_status_update.connect(self._new_api_status)
-	GlobalSignal.running_game.connect(self._new_running_game)
+	GlobalSignal.running_game.connect(self._new_running_game_status)
 
 func _new_api_status(status: String) -> void:
 	api_status_label.text = status
 
-func _new_running_game(game: Dictionary) -> void:
-	run_list_label.text = game["name"] + " " + game["create_time"]
+func _new_running_game_status(game: Dictionary) -> void:
+	if game["name"] == "None":
+		run_list_label.text = ""
+	else:
+		run_list_label.text = game["name"] + " " + game["create_time"]
 
 func _on_refresh_pressed() -> void:
 	refresh_pressed.emit()
