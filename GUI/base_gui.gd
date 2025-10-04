@@ -67,7 +67,9 @@ func _new_running_game_status(game: Dictionary) -> void:
 	if game["name"] == "None":
 		run_list_label.text = ""
 	else:
-		run_list_label.text = game["name"] + " " + game["create_time"]
+		# calc run time from float to minutes
+		var run_time : int = game["run_time"] / 60
+		run_list_label.text = game["name"] + " " + game["create_time"] + " " + str(run_time)
 
 func _on_refresh_pressed() -> void:
 	refresh_pressed.emit()

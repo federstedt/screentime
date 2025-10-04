@@ -43,8 +43,18 @@ async def proc_to_dict(proc) -> dict:
         "create_time": time.strftime(
             "%Y-%m-%d %H:%M:%S", time.localtime(proc.create_time())
         ),
+        "run_time":await calc_run_time(proc.create_time()),
     }
     return proc_dict
+
+async def calc_run_time(e_time : float) -> float:
+    """
+    From proc epochtime, calculate how long a proc has been
+    running for.
+    """
+    print(e_time)
+    print(time.time())
+    return time.time() - e_time
 
 async def get_all_procs_dict() -> list[dict]:
     """
