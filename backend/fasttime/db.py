@@ -1,3 +1,21 @@
+# Database boot stuff
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# SQLlite-fil
+DB_URL = "sqlite:///./screentime.db"
+
+engine = create_engine(
+        DB_URL,
+        connect_args={"check_same_thread": False},
+)
+
+SessionLocal = sessionmaker(autocommit=False,
+             autoflush=False, bind=engine)
+
+Base = declarative_base()
+
 # Placeholder for actual db where you store auth
 # TODO: hur skapar man säkra nyklar och spar dem
 
@@ -18,3 +36,5 @@ def check_api_key(api_key: str):
 
 def get_user_from_api_key(api_key: str):
     return users[api_keys[api_key]]
+
+

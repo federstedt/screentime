@@ -5,34 +5,34 @@ MONIT_PROCS = {
         "steam"
 }
 
-async def get_all_processes():
+def get_all_processes():
     """
     Get all running processes.
     """
     all_procs = psutil.process_iter(["pid", "name", "username", "create_time"])
     return all_procs
 
-async def get_proc_by_name(proc_name: str):
+def get_proc_by_name(proc_name: str):
     """
     Get proc by name. Costly for now since we first get all.
     """
-    all_procs = await get_all_processes()
+    all_procs = get_all_processes()
     for proc in all_procs:
         if proc_name in proc.info["name"]:
             return proc
 
-async def kill_proc_by_pid(pid:int):
+def kill_proc_by_pid(pid:int):
     """
     Get proc by pid and kill it.
     """
-    all_procs = await get_all_processes()
+    all_procs = get_all_processes()
     for proc in all_procs:
         print(proc.info)
         if proc.info["pid"] == pid:
             proc.kill()
             return True
 
-async def proc_to_dict(proc) -> dict:
+def proc_to_dict(proc) -> dict:
     """
     Convert psutil.Process to dict
     """
@@ -43,60 +43,59 @@ async def proc_to_dict(proc) -> dict:
         "create_time": time.strftime(
             "%Y-%m-%d %H:%M:%S", time.localtime(proc.create_time())
         ),
-        "run_time":await calc_run_time(proc.create_time()),
+        "run_time":calc_run_time(proc.create_time()),
     }
     return proc_dict
 
-async def calc_run_time(e_time : float) -> float:
+def calc_run_time(e_time : float) -> float:
     """
     From proc epochtime, calculate how long a proc has been
     running for.
     """
     print(e_time)
     print(time.time())
-    return time.time() - e_time
+    return e_time
 
-async def get_all_procs_dict() -> list[dict]:
+def get_all_procs_dict() -> list[dict]:
     """
     Get all running processes.
     Return an list of dict with processes
     """
     procs = []
-    for proc in await get_all_processes():
+    for proc in get_all_processes():
         print(proc.info)
-        procs.append(await proc_to_dict(proc))
+        procs.append(proc_to_dict(proc))
     return procs
 
 
-async def get_running_games():
+def get_running_games():
     """
     Get games running on the system from procs.
     """
     games = []
-    all_procs = await get_all_processes()
-    for proc in all_procs:
+    for proc in get_all_processes():
         if proc.info["name"] in MONIT_PROCS:
             games.append(proc)
 
     return games
 
-async def get_running_games_dict():
+def get_running_games_dict():
     """
     Get all games running and return as dict.
     """
-    games = await get_running_games()
+    games = get_running_games()
     games_dict = {}
     for game in games:
-        games_dict[game.info["name"]] = await proc_to_dict(game)
+        games_dict[game.info["name"]] = proc_to_dict(game)
 
     return games_dict
 
 
-async def kill_all_games():
+def kill_all_games():
     """
     Kill are processes that are games.
     """
-    all_games = await get_running_games()
+    all_games = get_running_games()
     for game in all_games:
         game.kill()
 

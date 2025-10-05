@@ -1,3 +1,6 @@
 fastapi
 uvicorn
 psutil
+sqlalchemy
+pywin32
+psutil
