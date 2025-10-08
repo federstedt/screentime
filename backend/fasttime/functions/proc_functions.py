@@ -3,7 +3,7 @@ import psutil
 import time
 import getpass
 
-MONIT_PROCS = {"steam"}
+MONIT_PROCS = {"steam", "godot"}
 CURRENT_USER = getpass.getuser()
 
 
