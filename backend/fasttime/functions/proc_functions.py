@@ -1,109 +1,110 @@
 # Monitoring and handling processes.
 import psutil
 import time
+import getpass
 
 MONIT_PROCS = {"steam"}
+CURRENT_USER = getpass.getuser()
 
 
 def get_all_processes():
     """
-    Get all running processes.
+    Return only processes that belong to the current user.
+    Skips system processes to avoid AccessDenied errors.
     """
-    all_procs = psutil.process_iter(["pid", "name", "username", "create_time"])
-    return all_procs
+    for proc in psutil.process_iter(["pid", "name", "username", "create_time", "exe"]):
+        try:
+            if proc.info.get("username") == CURRENT_USER:
+                yield proc
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
 
 
 def get_proc_by_name(proc_name: str):
     """
-    Get proc by name. Costly for now since we first get all.
+    Return the first process that matches the given name.
     """
-    all_procs = get_all_processes()
-    for proc in all_procs:
-        if proc_name in proc.info["name"]:
+    for proc in get_all_processes():
+        name = proc.info.get("name", "").lower()
+        if proc_name.lower() in name:
             return proc
 
 
 def kill_proc_by_pid(pid: int):
     """
-    Get proc by pid and kill it.
+    Kill a process by PID if it belongs to current user.
     """
-    all_procs = get_all_processes()
-    for proc in all_procs:
-        print(proc.info)
-        if proc.info["pid"] == pid:
-            proc.kill()
-            return True
+    for proc in get_all_processes():
+        if proc.info.get("pid") == pid:
+            try:
+                proc.kill()
+                return True
+            except psutil.AccessDenied:
+                print(f"No permission to kill PID {pid}")
+                return False
+    return False
+
+
+def calc_run_time(e_time: float) -> float:
+    """Return how long (in seconds) a process has been running."""
+    return time.time() - e_time
 
 
 def proc_to_dict(proc) -> dict:
     """
-    Convert psutil.Process to dict
+    Convert psutil.Process to dict safely.
     """
-    proc_dict = {
-        "pid": proc.pid,
-        "name": proc.name(),
-        "username": proc.username(),
-        "path": proc.exe(),
-        "create_time": time.strftime(
-            "%Y-%m-%d %H:%M:%S", time.localtime(proc.create_time())
-        ),
-        "run_time": calc_run_time(proc.create_time()),
-    }
-    return proc_dict
-
-
-def calc_run_time(e_time: float) -> float:
-    """
-    From proc epochtime, calculate how long a proc has been
-    running for.
-    """
-    print(e_time)
-    print(time.time())
-    return e_time
+    try:
+        return {
+            "pid": proc.pid,
+            "name": proc.info.get("name", ""),
+            "username": proc.info.get("username", ""),
+            "path": proc.info.get("exe", ""),
+            "create_time": time.strftime(
+                "%Y-%m-%d %H:%M:%S", time.localtime(proc.create_time())
+            ),
+            "run_time": calc_run_time(proc.create_time()),
+        }
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        return {}
 
 
 def get_all_procs_dict() -> list[dict]:
     """
-    Get all running processes.
-    Return an list of dict with processes
+    Return all running processes as a list of dicts.
     """
-    procs = []
-    for proc in get_all_processes():
-        print(proc.info)
-        procs.append(proc_to_dict(proc))
-    return procs
+    return [proc_to_dict(proc) for proc in get_all_processes()]
 
 
 def get_running_games():
     """
-    Get games running on the system from procs.
+    Get monitored processes currently running.
     """
     games = []
     for proc in get_all_processes():
-        if proc.info["name"] in MONIT_PROCS:
+        name = proc.info.get("name", "").lower()
+        if name in MONIT_PROCS:
             games.append(proc)
-
     return games
 
 
 def get_running_games_dict():
     """
-    Get all games running and return as dict.
+    Return all monitored processes as dict.
     """
-    games = get_running_games()
     games_dict = {}
-    for game in games:
-        games_dict[game.info["name"]] = proc_to_dict(game)
-
+    for game in get_running_games():
+        games_dict[game.info.get("name", "unknown")] = proc_to_dict(game)
     return games_dict
 
 
 def kill_all_games():
     """
-    Kill are processes that are games.
+    Kill all monitored processes.
     """
-    all_games = get_running_games()
-    for game in all_games:
-        game.kill()
-
+    for game in get_running_games():
+        try:
+            game.kill()
+        except psutil.AccessDenied:
+            print(f"No permission to kill {game.info.get('name')}")
     return True

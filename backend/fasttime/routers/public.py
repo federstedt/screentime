@@ -2,73 +2,88 @@ from psutil import NoSuchProcess
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
-from ..functions.proc_functions import get_all_procs_dict, get_proc_by_name, get_running_games, get_running_games_dict, kill_all_games, proc_to_dict, kill_proc_by_pid
+from ..functions.proc_functions import (
+    get_all_procs_dict,
+    get_proc_by_name,
+    get_running_games,
+    get_running_games_dict,
+    kill_all_games,
+    proc_to_dict,
+    kill_proc_by_pid,
+)
 
 router = APIRouter()
 
 
 #### ROUTES
 
+
 @router.get("/")
-async def get_testroute():
+def get_testroute():
     return "OK"
 
 
 @router.get("/procs/")
-async def get_processes_route():
+def get_processes_route():
     """
     Get all running processes
     """
-    procs = await get_all_procs_dict()
+    procs = get_all_procs_dict()
 
     return JSONResponse(content=procs)
 
 
 @router.get("/procs/games/")
-async def get_running_games_route():
+def get_running_games_route():
     """
     Get all running games from processes.
     Definition of a game is a internal db.
     """
-    games = await get_running_games_dict()
+    games = get_running_games_dict()
     return JSONResponse(content=games)
 
+
 @router.get("/procs/{poc_name}")
-async def get_proc_by_name_route(proc_name:str):
+def get_proc_by_name_route(proc_name: str):
     """
     Get proc by name. As costly as getting all and filtering though as of now.
     Since in backend we do get all first.
     """
-    proc = await get_proc_by_name(proc_name)
+    proc = get_proc_by_name(proc_name)
     if proc is None:
-        raise HTTPException(status_code=404, detail=f"No such process found: {proc_name}")
+        raise HTTPException(
+            status_code=404, detail=f"No such process found: {proc_name}"
+        )
 
-    proc_dict = await proc_to_dict(proc)
+    proc_dict = proc_to_dict(proc)
 
     return JSONResponse(content=proc_dict)
 
 
 @router.post("/procs/kill/{pid}")
-async def kill_proc_by_pid_route(pid: int):
+def kill_proc_by_pid_route(pid: int):
     """
     Kill process by using pid.
     """
     try:
-        result = await kill_proc_by_pid(pid)
+        result = kill_proc_by_pid(pid)
     except NoSuchProcess as exc:
-        raise HTTPException(status_code=404, detail=f"No such process found: {pid}") from exc
+        raise HTTPException(
+            status_code=404, detail=f"No such process found: {pid}"
+        ) from exc
 
     if result:
         return {"message": "success"}
     else:
         raise HTTPException(status_code=404, detail=f"No such process found: {pid}")
 
+
 @router.post("/procs/procs/games/kill-all")
-async def kill_all_game_procs_route():
+def kill_all_game_procs_route():
     """
     Kill all processes that are defined as games.
     """
-    if await kill_all_games():
+    if kill_all_games():
         return {"message": "success"}
     else:
         raise HTTPException(status_code=500, detail="Unhandled internal error")
