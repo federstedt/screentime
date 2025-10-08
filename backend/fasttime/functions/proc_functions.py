@@ -3,7 +3,7 @@ import psutil
 import time
 import getpass
 
-MONIT_PROCS = {"steam", "godot"}
+MONIT_PROCS = {"steam", "godot", "terminal"}
 CURRENT_USER = getpass.getuser()
 
 
@@ -77,14 +77,13 @@ def get_all_procs_dict() -> list[dict]:
 
 
 def get_running_games():
-    """
-    Get monitored processes currently running.
-    """
     games = []
     for proc in get_all_processes():
-        name = proc.info.get("name", "").lower()
-        if name in MONIT_PROCS:
-            games.append(proc)
+        name = proc.info["name"].lower()
+        for target in MONIT_PROCS:
+            if target.lower() in name:
+                games.append(proc)
+                break  # undvik dubbla träffar
     return games
 
 

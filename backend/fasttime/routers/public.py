@@ -23,7 +23,7 @@ def get_testroute():
     return "OK"
 
 
-@router.get("/procs/")
+@router.get("/live/procs/")
 def get_processes_route():
     """
     Get all running processes
@@ -33,7 +33,7 @@ def get_processes_route():
     return JSONResponse(content=procs)
 
 
-@router.get("/procs/games/")
+@router.get("/live/games/")
 def get_running_games_route():
     """
     Get all running games from processes.
@@ -43,7 +43,7 @@ def get_running_games_route():
     return JSONResponse(content=games)
 
 
-@router.get("/procs/{poc_name}")
+@router.get("/live/procs/{poc_name}")
 def get_proc_by_name_route(proc_name: str):
     """
     Get proc by name. As costly as getting all and filtering though as of now.
@@ -60,7 +60,7 @@ def get_proc_by_name_route(proc_name: str):
     return JSONResponse(content=proc_dict)
 
 
-@router.post("/procs/kill/{pid}")
+@router.post("/live/kill/{pid}")
 def kill_proc_by_pid_route(pid: int):
     """
     Kill process by using pid.
@@ -78,7 +78,7 @@ def kill_proc_by_pid_route(pid: int):
         raise HTTPException(status_code=404, detail=f"No such process found: {pid}")
 
 
-@router.post("/procs/procs/games/kill-all")
+@router.post("/live/games/kill-all")
 def kill_all_game_procs_route():
     """
     Kill all processes that are defined as games.
@@ -87,3 +87,11 @@ def kill_all_game_procs_route():
         return {"message": "success"}
     else:
         raise HTTPException(status_code=500, detail="Unhandled internal error")
+
+
+@router.get("/stats/apps")
+def get_all_sessions():
+    """
+    Get all sessions from db.
+    """
+    pass

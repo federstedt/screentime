@@ -21,7 +21,7 @@ class Session(Base):
     start_time = Column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
-    end_time = Column(DateTime(timezone=True), nullable=True)
+    end_time = Column(DateTime(timezone=True))
     duration_seconds = Column(Integer, nullable=True)
 
     app = relationship("App", back_populates="sessions")

@@ -3,6 +3,20 @@ from . import models
 from datetime import datetime, timezone
 
 
+def get_apps(db: Session):
+    """
+    Get all apps
+    """
+    pass
+
+
+def get_app(db: Session):
+    """
+    Get app by name from db
+    """
+    pass
+
+
 def get_or_create_app(db: Session, name: str, path: str):
     app = db.query(models.App).filter_by(name=name).first()
     if not app:
@@ -22,10 +36,11 @@ def start_session(db: Session, name: str, path: str, window_title: str):
     return session
 
 
-def end_session(db: Session, session):
-    if session.end_time is None:
-        session.end_time = datetime.now(timezone.utc)
-        session.duration_seconds = int(
-            (session.end_time - session.start_time).total_seconds()
-        )
-        db.commit()
+def end_session(db: Session, session: models.Session):
+    session.end_time = datetime.now(timezone.utc)
+
+    if session.start_time.tzinfo is None:
+        session.start_time = session.start_time.replace(tzinfo=timezone.utc)
+
+    session.duration_seconds = (session.end_time - session.start_time).total_seconds()
+    db.commit()
