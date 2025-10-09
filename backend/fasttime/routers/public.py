@@ -1,5 +1,7 @@
+from datetime import date
 from psutil import NoSuchProcess
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 from ..functions.proc_functions import (
@@ -11,6 +13,9 @@ from ..functions.proc_functions import (
     proc_to_dict,
     kill_proc_by_pid,
 )
+
+from ..functions.stats import get_daily_summary
+from ..db import get_db
 
 router = APIRouter()
 
@@ -89,9 +94,10 @@ def kill_all_game_procs_route():
         raise HTTPException(status_code=500, detail="Unhandled internal error")
 
 
-@router.get("/stats/apps")
-def get_all_sessions():
+@router.get("/stats/daily/today")
+def get_all_sessions(db: Session = Depends(get_db)):
     """
     Get all sessions from db.
     """
-    pass
+    sum = get_daily_summary(db, date.today())
+    return sum

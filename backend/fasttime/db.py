@@ -38,3 +38,10 @@ def get_user_from_api_key(api_key: str):
     return users[api_keys[api_key]]
 
 
+# Dependency: varje req får en db-session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
